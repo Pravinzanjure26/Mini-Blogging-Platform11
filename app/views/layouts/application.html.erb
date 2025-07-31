@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Mini Blogging Platform" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <!-- Optional PWA manifest -->
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Load all CSS from app/assets/stylesheets -->
+    <%= stylesheet_link_tag :application, "data-turbo-track": "reload" %>
+
+    <!-- Load all JavaScript (with importmaps) -->
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <!-- Flash messages -->
+    <%= render 'layouts/flash' %>
+
+    <!-- Navigation -->
+    <% if user_signed_in? %>
+      <p>
+        Logged in as <strong><%= current_user.email %></strong> |
+        <%= link_to 'Dashboard', dashboard_path %> |
+        <%= link_to 'Edit Profile', edit_user_registration_path %> |
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete %> |
+        <% if current_user&.admin? %>
+          <%= link_to "Admin - Manage Users", admin_users_path %> |
+          <%= link_to "Admin - Manage Posts", admin_posts_path %>
+        <% end %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to 'Sign up', new_user_registration_path %> |
+        <%= link_to 'Login', new_user_session_path %>
+      </p>
+    <% end %>
+
+    <hr>
+
+    <!-- Page content -->
+    <%= yield %>
+  </body>
+</html>

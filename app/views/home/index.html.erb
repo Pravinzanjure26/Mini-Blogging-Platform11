@@ -1,0 +1,28 @@
+<div class="home-container">
+  <div class="hero">
+    <h1>Welcome to the Mini Blogging Platform</h1>
+    <p>Share your thoughts, read blogs, and connect with the community.</p>
+
+    <% if user_signed_in? %>
+      <%= link_to "Go to Dashboard", dashboard_path, class: "btn" %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, class: "btn" %>
+      <%= link_to "Login", new_user_session_path, class: "btn outline" %>
+    <% end %>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      📝 <h2>Create Posts</h2>
+      <p>Express yourself through blog posts with rich content.</p>
+    </div>
+    <div class="feature">
+      💬 <h2>Comment & Interact</h2>
+      <p>Engage with other users through comments.</p>
+    </div>
+    <div class="feature">
+      🔒 <h2>Secure Login</h2>
+      <p>Authentication powered by Devise to keep your account safe.</p>
+    </div>
+  </div>
+</div>

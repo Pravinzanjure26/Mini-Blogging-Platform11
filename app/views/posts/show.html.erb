@@ -1,0 +1,44 @@
+<h1><%= @post.title %></h1>
+
+<p><%= @post.content %></p>
+
+<p><strong>Author:</strong> <%= @post.user.email %></p>
+
+<% if user_signed_in? && @post.user == current_user %>
+  <%= link_to 'Edit', edit_post_path(@post) %> |
+  <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
+<hr>
+
+<h2>Comments</h2>
+
+<% if @post.comments.any? %>
+  <% @post.comments.each do |comment| %>
+    <div class="comment">
+      <p><%= comment.body %></p>
+      <small><strong>By:</strong> <%= comment.user.email %></small>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>No comments yet.</p>
+<% end %>
+
+<% if user_signed_in? %>
+  <h3>Add a comment:</h3>
+  <%= form_with(model: [@post, @comment], local: true) do |form| %>
+    <div>
+      <%= form.label :body, "Comment" %><br>
+      <%= form.text_area :body, rows: 3 %>
+    </div>
+    <div>
+      <%= form.submit 'Post Comment' %>
+    </div>
+  <% end %>
+<% else %>
+  <p><%= link_to 'Login', new_user_session_path %> to add a comment.</p>
+<% end %>
+
+<br>
+<%= link_to 'Back to Posts', posts_path %>

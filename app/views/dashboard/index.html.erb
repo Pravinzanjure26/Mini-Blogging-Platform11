@@ -1,0 +1,27 @@
+<h1>My Dashboard</h1>
+
+<h2>My Posts</h2>
+<% if @user_posts.any? %>
+  <% @user_posts.each do |post| %>
+    <div>
+      <h3><%= link_to post.title, post_path(post) %></h3>
+      <p><%= truncate(post.content, length: 150) %></p>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>You haven't written any posts yet.</p>
+<% end %>
+
+<h2>My Comments</h2>
+<% if @user_comments.any? %>
+  <% @user_comments.each do |comment| %>
+    <div>
+      <p><%= comment.content %></p>
+      <small>On post: <%= link_to comment.post.title, post_path(comment.post) %></small>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>You haven't written any comments yet.</p>
+<% end %>

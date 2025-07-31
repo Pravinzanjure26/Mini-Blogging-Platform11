@@ -1,0 +1,35 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: mini_blogging_platform_development
+
+test:
+  <<: *default
+  database: mini_blogging_platform_test
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: mini_blogging_platform_production
+    username: postgres
+    password: postgres
+  cache:
+    <<: *primary_production
+    database: mini_blogging_platform_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: mini_blogging_platform_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: mini_blogging_platform_production_cable
+    migrations_paths: db/cable_migrate
