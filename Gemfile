@@ -7,7 +7,7 @@ gem "rails", "~> 8.0.2"
 gem "propshaft"
 
 # Use PostgreSQL for all environments (including production)
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.6"
 
 # Web server
 gem "puma", ">= 5.0"
