@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Use stable Rails version
-gem "rails", "~> 8.0.2"
+gem "rails", "~> 8.1.0"
 
 # Asset pipeline
 gem "propshaft"
